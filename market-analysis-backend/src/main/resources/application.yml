@@ -1,0 +1,12 @@
+server:
+  port: 8082
+
+housing:
+  dataset-path: ../House Price Dataset.csv
+  model-api-base-url: http://127.0.0.1:8000
+
+spring:
+  application:
+    name: market-analysis-backend
+  cache:
+    type: simple

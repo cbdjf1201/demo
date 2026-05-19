@@ -1,0 +1,48 @@
+services:
+  model-api:
+    build:
+      context: .
+      dockerfile: model-api/Dockerfile
+    ports:
+      - "8000:8000"
+
+  estimator-backend:
+    build:
+      context: .
+      dockerfile: estimator-backend/Dockerfile
+    environment:
+      MODEL_API_BASE_URL: http://model-api:8000
+    ports:
+      - "8001:8001"
+    depends_on:
+      - model-api
+
+  market-analysis-backend:
+    build:
+      context: .
+      dockerfile: market-analysis-backend/Dockerfile
+    environment:
+      HOUSING_MODEL_API_BASE_URL: http://model-api:8000
+      HOUSING_DATASET_PATH: ./House Price Dataset.csv
+    ports:
+      - "8082:8082"
+    depends_on:
+      - model-api
+
+  portal:
+    image: node:24-alpine
+    working_dir: /app
+    volumes:
+      - ./portal:/app
+      - /app/node_modules
+      - /app/.next
+    command: sh -c "npm install && npm run dev"
+    environment:
+      MARKET_API_BASE_URL: http://market-analysis-backend:8082/api/market/v1
+      NEXT_PUBLIC_ESTIMATOR_API_BASE_URL: http://localhost:8001/api/estimator/v1
+      NEXT_PUBLIC_MARKET_API_BASE_URL: http://localhost:8082/api/market/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - estimator-backend
+      - market-analysis-backend

@@ -1,0 +1,31 @@
+# Build outputs
+**/.next/
+**/dist/
+**/build/
+**/target/
+**/coverage/
+
+# Dependencies
+**/node_modules/
+**/.venv/
+**/venv/
+
+# Python caches
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# Environment files
+**/.env
+**/.env.*
+!**/.env.example
+
+# Local runtime bundles
+tools/
+
+# Misc
+*.log
+.DS_Store
+*.iml

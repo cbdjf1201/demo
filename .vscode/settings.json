@@ -1,0 +1,14 @@
+{
+  "models": {
+    "deepseek-coder": {
+      "provider": "openai-compatible",
+      "apiKey": "sk-你的DeepSeek_API_KEY",
+      "baseUrl": "https://api.deepseek.com/v1",
+      "model": "deepseek-coder",
+      "contextLength": 128000
+    }
+  },
+  "chat.defaultModel": "deepseek-coder",
+  "completions.defaultModel": "deepseek-coder",
+  "auto.mode": "custom"
+}
