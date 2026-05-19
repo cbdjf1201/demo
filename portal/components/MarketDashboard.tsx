@@ -1,5 +1,7 @@
 "use client";
 
+/** 市场分析页：汇总卡片、多维筛选、可排序表格、导出链接及内嵌 What-If。 */
+
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -313,6 +315,7 @@ function setParam(params: URLSearchParams, key: string, value: string) {
   params.set(key, trimmed);
 }
 
+/** 将表单字段名映射为后端 SegmentFilter 查询参数（如 minDistance → minDistanceToCityCenter）。 */
 function buildExportQuery(filters: FilterRange) {
   const params = new URLSearchParams();
   const mapping: Record<keyof FilterRange, string> = {

@@ -4,6 +4,7 @@
 **/build/
 **/target/
 **/coverage/
+**/*.tsbuildinfo
 
 # Dependencies
 **/node_modules/
@@ -22,8 +23,25 @@
 **/.env.*
 !**/.env.example
 
+# Local IDE settings
+.vscode/
+.idea/
+
 # Local runtime bundles
 tools/
+
+# Office and archive attachments
+*.pdf
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+*.zip
+*.7z
+*.rar
+Interview Tasks Fullstack.pdf
 
 # Misc
 *.log

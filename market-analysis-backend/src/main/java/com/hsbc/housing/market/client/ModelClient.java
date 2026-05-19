@@ -13,6 +13,9 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
+/**
+ * 调用 FastAPI 模型服务的 {@code POST /predict}，将 Java 驼峰字段转为 snake_case JSON。
+ */
 @Component
 public class ModelClient {
     private static final TypeReference<Map<String, Object>> MODEL_RESPONSE = new TypeReference<>() {
@@ -60,6 +63,7 @@ public class ModelClient {
         }
     }
 
+    /** 字段名须与 model-api 的 Pydantic 模型一致。 */
     private Map<String, Object> toModelPayload(PropertyFeatures features) {
         return Map.of(
                 "square_footage", features.squareFootage(),

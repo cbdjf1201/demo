@@ -13,6 +13,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.stereotype.Service;
 
+/**
+ * 将筛选后的房源列表导出为 CSV 或精简版 PDF 表格。
+ */
 @Service
 public class ExportService {
     public byte[] csv(List<HousingRecord> records) {
@@ -44,6 +47,7 @@ public class ExportService {
         }
     }
 
+    /** PDF 仅保留演示所需的核心列，完整字段见 CSV 导出。 */
     public byte[] pdf(List<HousingRecord> records) {
         try {
             ByteArrayOutputStream output = new ByteArrayOutputStream();

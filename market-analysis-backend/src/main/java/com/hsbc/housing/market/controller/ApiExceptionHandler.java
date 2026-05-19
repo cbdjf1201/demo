@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 统一将未捕获异常转为 JSON 错误体，避免向前端泄露堆栈。
+ */
 @RestControllerAdvice
 public class ApiExceptionHandler {
     @ExceptionHandler(Exception.class)

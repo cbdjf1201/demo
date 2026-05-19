@@ -1,5 +1,7 @@
 "use client";
 
+/** What-If 工具：并排编辑基准/情景特征，调用市场后端对比两次模型预测。 */
+
 import { useState, useTransition } from "react";
 
 import { marketApiBaseUrl } from "@/lib/api";

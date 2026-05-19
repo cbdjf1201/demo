@@ -1,7 +1,9 @@
+"""估值请求体；字段与 model-api 的 PropertyFeatures 对齐。"""
 from pydantic import BaseModel, Field
 
 
 class EstimateRequest(BaseModel):
+    """门户表单提交的房产特征。"""
     square_footage: int = Field(gt=0)
     bedrooms: int = Field(ge=0)
     bathrooms: float = Field(ge=0)
@@ -12,4 +14,6 @@ class EstimateRequest(BaseModel):
 
 
 class BatchEstimateRequest(BaseModel):
+    """对比页一次提交多套特征。"""
+
     items: list[EstimateRequest] = Field(min_length=1)

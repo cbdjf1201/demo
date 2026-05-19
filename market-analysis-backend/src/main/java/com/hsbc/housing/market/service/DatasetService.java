@@ -8,12 +8,16 @@ import java.nio.file.Path;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+/**
+ * 启动时从 CSV 加载房源数据并常驻内存；列顺序须与 {@link #parse} 一致。
+ */
 @Service
 public class DatasetService {
     private final List<HousingRecord> records;
 
     public DatasetService(MarketProperties properties) throws IOException {
         Path datasetPath = Path.of(properties.datasetPath()).normalize();
+        // 跳过表头行，空行忽略
         this.records = Files.readAllLines(datasetPath).stream()
                 .skip(1)
                 .filter(line -> !line.isBlank())
@@ -25,6 +29,10 @@ public class DatasetService {
         return records;
     }
 
+    /**
+     * CSV 列序：id, square_footage, bedrooms, bathrooms, year_built,
+     * lot_size, distance_to_city_center, school_rating, price
+     */
     private HousingRecord parse(String line) {
         String[] columns = line.split(",");
         return new HousingRecord(

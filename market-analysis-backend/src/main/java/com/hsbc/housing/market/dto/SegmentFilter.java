@@ -1,5 +1,8 @@
 package com.hsbc.housing.market.dto;
 
+/**
+ * 分段筛选条件；各字段为 {@code null} 时表示该维度不限制。
+ */
 public record SegmentFilter(
         Integer minSquareFootage,
         Integer maxSquareFootage,

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+/** 送入模型 API 的房产特征；约束与 FastAPI/Pydantic 校验对齐。 */
 public record PropertyFeatures(
         @NotNull @Positive Integer squareFootage,
         @NotNull @Min(0) Integer bedrooms,

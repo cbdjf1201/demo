@@ -1,3 +1,4 @@
+"""房价预测路由：支持单条与批量两种请求体。"""
 from fastapi import APIRouter
 
 from app.schemas.prediction import BatchPredictionRequest, PropertyFeatures
@@ -8,6 +9,7 @@ router = APIRouter(tags=["prediction"])
 
 @router.post("/predict")
 def predict(payload: PropertyFeatures | BatchPredictionRequest) -> dict:
+    """单条返回 predicted_price；批量请求体含 items 时返回 predictions 列表。"""
     service = get_model_service()
 
     if isinstance(payload, BatchPredictionRequest):

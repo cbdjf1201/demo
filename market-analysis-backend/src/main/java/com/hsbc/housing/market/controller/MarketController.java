@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 市场分析 REST API：汇总统计、分段查询、What-If 及带筛选条件的导出。
+ */
 @RestController
 @RequestMapping("/api/market/v1")
 public class MarketController {
@@ -38,11 +41,13 @@ public class MarketController {
         this.exportService = exportService;
     }
 
+    /** 全量数据集的聚合指标（条数、均价、中位价等）。 */
     @GetMapping("/summary")
     public MarketSummary summary() {
         return marketAnalysisService.summary();
     }
 
+    /** 按查询参数区间筛选房源；未传的参数表示该维度不设上下界。 */
     @GetMapping("/segments")
     public List<HousingRecord> segments(
             @RequestParam(required = false) Integer minSquareFootage,
@@ -82,6 +87,7 @@ public class MarketController {
         ));
     }
 
+    /** 对 baseline 与 scenario 两套特征分别调用模型 API，返回预测价及差额。 */
     @PostMapping("/what-if")
     public WhatIfResponse whatIf(@Valid @RequestBody WhatIfRequest request) {
         return whatIfService.analyze(request);
@@ -179,6 +185,7 @@ public class MarketController {
                 .body(exportService.pdf(marketAnalysisService.segments(filter)));
     }
 
+    /** 将 HTTP 查询参数组装为 {@link SegmentFilter}，供筛选与导出共用。 */
     private SegmentFilter toFilter(
             Integer minSquareFootage,
             Integer maxSquareFootage,

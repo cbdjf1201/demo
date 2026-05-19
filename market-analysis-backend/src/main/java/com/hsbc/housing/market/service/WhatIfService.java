@@ -5,6 +5,9 @@ import com.hsbc.housing.market.dto.WhatIfRequest;
 import com.hsbc.housing.market.dto.WhatIfResponse;
 import org.springframework.stereotype.Service;
 
+/**
+ * What-If 分析：分别对基准与情景特征调用模型，计算预测价差。
+ */
 @Service
 public class WhatIfService {
     private final ModelClient modelClient;

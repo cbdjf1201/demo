@@ -8,6 +8,9 @@ import java.util.List;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+/**
+ * 市场汇总与分段筛选；结果经 Spring Cache 缓存以降低重复计算。
+ */
 @Service
 public class MarketAnalysisService {
     private final DatasetService datasetService;
@@ -45,6 +48,7 @@ public class MarketAnalysisService {
 
     private MarketSummary summarize(List<HousingRecord> records) {
         List<Double> prices = records.stream().map(HousingRecord::price).sorted().toList();
+        // 偶数条取中间两价均值，奇数条取正中元素
         double median = prices.size() % 2 == 0
                 ? (prices.get(prices.size() / 2 - 1) + prices.get(prices.size() / 2)) / 2
                 : prices.get(prices.size() / 2);
